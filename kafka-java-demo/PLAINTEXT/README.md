@@ -39,7 +39,7 @@
 | topic        | 主题名称    |
 | message      | 消息的具体内容 |
 | group_id     | 消费组id   |
-## 生产者代码示例
+#### 生产者代码示例
 创建KafkaProducerDemo.java文件，具体代码示例如下：
 ```java
 package org.example.Java示例.PLAINTEXT;
@@ -105,7 +105,7 @@ public static void main(String[] args) {
     }
 }
 ```
-### 消费者代码示例
+#### 消费者代码示例
 创建KafkaConsumerDemo.java文件，具体代码示例如下：
 ```java
 package org.example.Java示例.PLAINTEXT;

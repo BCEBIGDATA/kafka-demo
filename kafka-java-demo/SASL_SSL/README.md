@@ -30,7 +30,7 @@
     </dependency>
 </dependencies>
 ```
-步骤三：创建JAAS 配置文件
+### 步骤三：创建JAAS 配置文件
 创建 jaas 配置文件 kafka_client_jaas.conf
 ```java
 KafkaClient {
@@ -71,7 +71,7 @@ kafka.properties  可以作为 resources 文件与代码一起打包，代码运
 | topic    | 主题名称    |
 | message  | 消息的具体内容 |
 | group_id | 消费组id   |
-## 生产者代码示例
+#### 生产者代码示例
 创建KafkaProducerDemo.java文件，具体代码示例如下：
 ```java
 package org.example.Java示例.SASL_SSL;
@@ -162,7 +162,7 @@ public class KafkaProducerDemo {
    }
 }
 ```
-### 消费者代码示例
+#### 消费者代码示例
 创建KafkaConsumerDemo.java文件，具体代码示例如下：
 ```java
 package org.example.Java示例.SASL_SSL;
