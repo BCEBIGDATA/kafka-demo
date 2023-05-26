@@ -1,3 +1,4 @@
+# 公网SASL_SSL方式生产和消费消息
 在 Kafka 集群所在 VPC 网络外访问，使用 SASL_SSL 协议接入，接入点可以在 【集群详情】 页面查看。
 ## 环境准备
 1. [安装1.8或以上版本 JDK](https://www.oracle.com/java/technologies/downloads/)

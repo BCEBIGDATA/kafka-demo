@@ -1,3 +1,4 @@
+# VPC网络PLAINTEXT方式生产和消费
 在同 VPC 网络下访问，使用 PLAINTEXT 协议接入，接入点可以在 【集群详情】 页面查看。
 ## 环境准备
 1. [安装1.8或以上版本 JDK](https://www.oracle.com/java/technologies/downloads/)
