@@ -30,6 +30,7 @@
 | group_id          | 消费组id   |
 |     sasl.username              |    用户管理中创建用户的用户名     |
 |      sasl.password                          |   用户管理中创建用户的密码                   |
+
 用户创建请参考：[用户创建]()。
 #### 生产者代码示例
 创建KafkaProducerDemo.py文件，具体代码示例如下：
