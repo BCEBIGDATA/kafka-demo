@@ -20,8 +20,8 @@
 ### 步骤一：获取集群接入点
 具体请参考：[接入点查看](https://bce.bdstatic.com/p3m/common-service/uploads/client.truststore_8e673ab.jks)。
 
-### 步骤二：下载client.truststore.jks证书文件
-下载证书文件：[client.truststore.jks]()
+### 步骤二：下载ssl.cert.zip证书文件
+下载证书文件：[ssl.cert.zip](https://bce-kafka-bj.bj.bcebos.com/cert/ssl.cert.zip)
 
 ### 步骤三：编写测试代码
 * 需要关注并自行修改的参数
