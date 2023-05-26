@@ -1,5 +1,5 @@
-# VPC网络SASL_PLAINTEXT方式生产和消费
-在同 VPC 网络下访问，使用 SASL_PLAINTEXT 协议接入，接入点可以在 【集群详情】 页面查看。
+# 公网SASL_SSL方式生产和消费消息
+在 Kafka 集群所在 VPC 网络外访问，使用 SASL_SSL 协议接入，接入点可以在 【集群详情】 页面查看。
 具体请参考接入点查看
 ## 环境准备
 1. [安装GCC](https://gcc.gnu.org/install/?spm=a2c4g.159954.0.0.4f6744d285uMBi)
