@@ -23,7 +23,7 @@
         <artifactId>kafka-clients</artifactId>
         <version>2.7.2</version>
     </dependency>
-<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->
+    <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->
     <dependency>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
@@ -52,8 +52,8 @@ import org.apache.kafka.clients.producer.RecordMetadata;
 
 import java.util.Properties;
 
-public class baidu.kafka.KafkaProducerDemo {
-public static void main(String[] args) {
+public class KafkaProducerDemo {
+    public static void main(String[] args) {
 
         // 需要自行配置下面三个参数
         // 接入点-PLAINTEXT
@@ -121,8 +121,8 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 
-public class baidu.kafka.KafkaConsumerDemo {
-public static void main(String[] args) {
+public class KafkaConsumerDemo {
+    public static void main(String[] args) {
 
         // 需要自行配置下面三个参数
         // 接入点-PLAINTEXT
