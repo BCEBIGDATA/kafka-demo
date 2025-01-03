@@ -12,6 +12,7 @@ import java.util.Properties;
 
 public class KafkaProducerDemo {
     public static void main(String[] args) throws IOException {
+
         // 需要自行配置下面三个参数
         // kafka.properties所在路径（建议写文件所在的绝对路径）
         String path = "kafka.properties";

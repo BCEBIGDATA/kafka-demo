@@ -10,13 +10,13 @@ $conf->set('sasl.username','alice');
 // SASL 密码
 $conf->set('sasl.password','alice1234!');
 // 证书文件路径
-$conf->set('ssl.ca.location',__DIR__.'/ssl.cert/client.truststore.pem');
+$conf->set('ssl.ca.location',__DIR__.'/kafka-key/ca.pem');
 // 消费组 id
 $conf->set('group.id', 'php-group');
 
 $rk = new RdKafka\Consumer($conf);
 // 接入点
-$rk->addBrokers("120.48.16.84:9095,120.48.159.11:9095,180.76.99.163:9095");
+$rk->addBrokers("接入点");
 
 $topicConf = new RdKafka\TopicConf();
 $topicConf->set('auto.commit.interval.ms', 100);

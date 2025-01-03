@@ -119,9 +119,9 @@ rd_kafka_resp_err_t err; /* librdkafka API error code */
         rd_kafka_conf_destroy(conf);
         return 1;
     }
-
+    // 认证机制支持PLAIN、SCRAM-SHA-512两种机制，根据集群所使用的认证方式进行选择
     if (
-            rd_kafka_conf_set(conf, "ssl.ca.location", "client.truststore.pem", errstr, sizeof(errstr)) != RD_KAFKA_CONF_OK
+            rd_kafka_conf_set(conf, "ssl.ca.location", "ca.pem", errstr, sizeof(errstr)) != RD_KAFKA_CONF_OK
             || rd_kafka_conf_set(conf, "security.protocol", "sasl_ssl", errstr, sizeof(errstr)) != RD_KAFKA_CONF_OK
             || rd_kafka_conf_set(conf, "sasl.mechanism", "SCRAM-SHA-512", errstr, sizeof(errstr)) != RD_KAFKA_CONF_OK
             || rd_kafka_conf_set(conf, "sasl.username", username, errstr, sizeof(errstr)) != RD_KAFKA_CONF_OK

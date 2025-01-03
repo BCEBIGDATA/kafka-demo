@@ -1,8 +1,8 @@
-package SASL_SSL
+package main
 
 import (
-	"fmt"
-	"github.com/confluentinc/confluent-kafka-go/kafka"
+"fmt"
+"github.com/confluentinc/confluent-kafka-go/kafka"
 )
 
 func main() {
@@ -13,7 +13,7 @@ func main() {
 		// 接入协议
 		"security.protocol": "sasl_ssl",
 		// 证书文件路径
-		"ssl.ca.location": "client.truststore.pem",
+		"ssl.ca.location": "ca.pem",
 		// SASL 机制
 		"sasl.mechanism": "SCRAM-SHA-512",
 		// SASL 用户名

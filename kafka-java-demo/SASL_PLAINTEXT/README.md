@@ -1,40 +1,59 @@
-# VPC网络SASL_PLAINTEXT方式生产和消费消息
-在同 VPC 网络下访问，使用 SASL_PLAINTEXT 协议接入，接入点可以在 【集群详情】 页面查看。
+在同 VPC 网络下访问，使用 SASL_PLAINTEXT 协议接入，接入点可以在 **集群详情** 页面查看。
+
 ## 环境准备
+
 1. [安装1.8或以上版本 JDK](https://www.oracle.com/java/technologies/downloads/)
 2. [安装2.5或以上版本 Maven](https://maven.apache.org/download.cgi)
+
 ## 集群准备
+
 ### 1. 购买专享版消息服务for Kafka集群
-   开通消息服务 for Kafka服务后，在控制台页面点击『创建集群』，即可进行购买。
+
+开通消息服务 for Kafka服务后，在控制台页面点击『创建集群』，即可进行购买。
+
 ![img.png](../../img/img.png)
+
 ### 2. 为购买的集群创建主题
-   在控制台页面点击集群名称，进入集群详情页面。
-   在左侧的边栏中点击『主题管理』，进入主题管理页面。
+
+在控制台页面点击集群名称，进入集群详情页面。
+
+在左侧的边栏中点击『主题管理』，进入主题管理页面。
+
 ![img.png](../../img/img1.png)
+
 在主题管理页面点击『创建主题』，进行主题的创建。
-## 使用步骤
+
+## 使用步骤：
+
 ### 步骤一：获取集群接入点
-具体请参考：[接入点查看]()。
+
+具体请参考：[接入点查看](Kafka/专享版/操作指南/集群管理/查看集群接入点.md)。
+
 ### 步骤二：添加Maven配置
+
 ```xml
-<dependencies>
-    <dependency>
-        <groupId>org.apache.kafka</groupId>
-        <artifactId>kafka-clients</artifactId>
-        <version>2.7.2</version>
-    </dependency>
-<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->
-    <dependency>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.5.0</version>
-    </dependency>
-</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>2.7.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+    </dependencies>
 ```
+
 ### 步骤三：创建JAAS 配置文件
-创建 jaas 配置文件 kafka_client_jaas.conf，认证机制支持PLAIN、SCRAM-SHA-512两种机制，根据集群所使用的认证方式进行选择。 
+
+创建 jaas 配置文件 kafka_client_jaas.conf，认证机制支持PLAIN、SCRAM-SHA-512两种机制，根据集群所使用的认证方式进行选择。
+
 
 SCRAM-SHA-512：
+
 ```java
 KafkaClient {
     org.apache.kafka.common.security.scram.ScramLoginModule required
@@ -50,14 +69,19 @@ KafkaClient {
     password="{password}";
 };
 ```
+
 username，password 填创建用户时设置的值。
+
 ### 步骤四：创建kafka.properties配置文件
+
 提供接入 Kafka 服务需要的配置信息，配置项如下：
-* bootstrap.servers 配置为接入点地址，具体请参考[接入点查看]()。
-* security.protocol 固定为 SASL_PLAINTEXT
-* sasl.mechanism 固定为 SCRAM-SHA-512或者PLAIN，根据集群所使用的认证方式进行选择
-* java.security.auth.login.config 配置为 kafka_client_jaas.conf 路径
-```xml
+
+- bootstrap.servers  配置为接入点地址，具体请参考[接入点查看](Kafka/专享版/操作指南/集群管理/查看集群接入点.md)。
+- security.protocol    固定为 SASL_PLAINTEXT
+- sasl.mechanism    固定为 SCRAM-SHA-512或者PLAIN，根据集群所使用的认证方式进行选择
+- java.security.auth.login.config  配置为 kafka_client_jaas.conf 路径
+
+```plain
 bootstrap.servers=<接入点地址>
 
 security.protocol=SASL_PLAINTEXT
@@ -67,19 +91,24 @@ sasl.mechanism=SCRAM-SHA-512
 
 java.security.auth.login.config=/etc/kafka/kafka_client_jaas.conf
 ```
+
 kafka.properties  可以作为 resources 文件与代码一起打包，代码运行时会在 classpath 中寻找 kafka.properties 文件资源；也可以在运行代码时将 kafka.properties 置于进程工作目录同级的 config 目录下。
 
 ### 步骤五：编写测试代码
-* 需要关注并自行修改的参数
 
-| 参数名      | 含义      |
-|----------|---------|
-| path     | 接入点信息kafka.properties所在路径（建议写文件所在的绝对路径）     |
-| topic    | 主题名称    |
-| message  | 消息的具体内容 |
-| group_id | 消费组id   |
+- 需要关注并自行修改的参数
+
+| 参数名   | 含义                                                         |
+| -------- | ------------------------------------------------------------ |
+| path     | 接入点信息kafka.properties所在路径（建议写文件所在的绝对路径） |
+| topic    | 主题名称                                                     |
+| message  | 消息的具体内容                                               |
+| group_id | 消费组id                                                     |
+
 #### 生产者代码示例
+
 创建KafkaProducerDemo.java文件，具体代码示例如下：
+
 ```java
 package org.example.Java示例.SASL_PLAINTEXT;
 
@@ -169,8 +198,11 @@ public class KafkaProducerDemo {
     }
 }
 ```
+
 #### 消费者代码示例
+
 创建KafkaConsumerDemo.java文件，具体代码示例如下：
+
 ```java
 package org.example.Java示例.SASL_PLAINTEXT;
 
@@ -264,24 +296,37 @@ public class KafkaConsumerDemo {
     }
 }
 ```
+
 ### 步骤六：编译并运行
+
 编译并运行上述两个代码文件。
-* 先启动KafkaConsumerDemo.java，再启动KafkaProducerDemo.java
+
+- 先启动KafkaConsumerDemo.java
+- 再启动KafkaProducerDemo.java
+
 ### 步骤七：查看集群监控
+
 查看消息是否发送成功或消费成功有两种方式：
-1. 在服务器端/控制台查看日志。
+
+1. 查看程序输出日志。
 2. 在专享版消息服务 for Kafka控制台查看集群监控，获取集群生产、消息情况。
 
 推荐使用第二种方式，下面介绍如何查看集群监控。
 
 （1）在专享版消息服务 for Kafka的控制台页面找到需要连接的集群，点击集群名称进入『集群详情』页面。
+
 ![img.png](../../img/img2.png)
+
 （2）页面跳转后，进入左侧边中的『集群详情』页面。
+
 ![img.png](../../img/img3.png)
+
 （3）点击左侧边栏中的『集群监控』，进入『集群监控』页面。
+
 ![img.png](../../img/img4.png)
+
 （4）通过查看『集群监控』页面，提供的不同纬度的监控信息（集群监控、节点监控、主题监控、消费组监控），即可获知集群的生产和消费情况。
-集群监控的具体使用请参考：[集群监控]()
+
+集群监控的具体使用请参考：[集群监控](Kafka/专享版/操作指南/监控报警/集群监控.md)
+
 ![img.png](../../img/img5.png)
-
-

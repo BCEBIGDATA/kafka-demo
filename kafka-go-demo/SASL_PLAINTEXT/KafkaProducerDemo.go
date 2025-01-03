@@ -1,8 +1,8 @@
-package SASL_PLAINTEXT
+package main
 
 import (
-	"fmt"
-	"github.com/confluentinc/confluent-kafka-go/kafka"
+"fmt"
+"github.com/confluentinc/confluent-kafka-go/kafka"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-package PLAINTEXT
+package main
 
 import (
 "fmt"

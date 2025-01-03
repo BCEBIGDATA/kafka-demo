@@ -2,12 +2,12 @@ from confluent_kafka import Consumer
 
 consumer = Consumer({
     # 接入点
-    'bootstrap.servers':'120.48.16.84:9095,120.48.159.11:9095,180.76.99.163:9095',
+    'bootstrap.servers':'接入点',
     # 接入协议
     'security.protocol':'SASL_SSL',
     'ssl.endpoint.identification.algorithm':'none',
     # 证书文件路径
-    'ssl.ca.location':'client.truststore.pem',
+    'ssl.ca.location':'ca.pem',
     # SASL 机制
     'sasl.mechanism':'SCRAM-SHA-512',
     # SASL 用户名

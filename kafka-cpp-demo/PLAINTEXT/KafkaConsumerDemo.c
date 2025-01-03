@@ -89,13 +89,18 @@ rd_kafka_resp_err_t err; /* librdkafka API error code */
     /*
      * Argument validation
      */
+
+    // 检查参数配置
     if (argc < 4) {
         fprintf(stderr, "%% Usage: %s <broker> <group.id> <username> <password> <topic1> <topic2>..\n", argv[0]);
         return 1;
     }
 
+    // 接入点信息
     brokers   = argv[1];
+    // 消费组 id
     groupid   = argv[2];
+    // 主题名称
     topics    = &argv[3];
 
     topic_cnt = argc - 3;

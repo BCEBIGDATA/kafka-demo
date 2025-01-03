@@ -6,7 +6,7 @@ $conf->set('metadata.broker.list', '接入点');
 // 接入协议
 $conf->set('security.protocol','sasl_ssl');
 // 证书文件路径（证书文件请参考"接入点查看"文档）
-$conf->set('ssl.ca.location',__DIR__.'/ssl.cert/client.truststore.pem');
+$conf->set('ssl.ca.location',__DIR__.'/kafka-key/ca.pem');
 // SASL 机制
 $conf->set('sasl.mechanism','SCRAM-SHA-512');
 // SASL 用户名
