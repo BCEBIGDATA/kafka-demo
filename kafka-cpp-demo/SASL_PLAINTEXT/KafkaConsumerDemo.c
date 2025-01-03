@@ -91,15 +91,22 @@ rd_kafka_resp_err_t err; /* librdkafka API error code */
     /*
      * Argument validation
      */
+
+    // 检查参数配置
     if (argc < 6) {
         fprintf(stderr, "%% Usage: %s <broker> <group.id> <username> <password> <topic1> <topic2>..\n", argv[0]);
         return 1;
     }
 
+    // 接入点信息
     brokers   = argv[1];
+    // 消费组 id
     groupid   = argv[2];
+    // 用户管理中创建的用户名称
     username  = argv[3];
+    // 用户管理中创建的用户密码
     password  = argv[4];
+    // 主题名称
     topics    = &argv[5];
 
     topic_cnt = argc - 5;
@@ -119,7 +126,7 @@ rd_kafka_resp_err_t err; /* librdkafka API error code */
         rd_kafka_conf_destroy(conf);
         return 1;
     }
-
+    // 认证机制支持PLAIN、SCRAM-SHA-512两种机制，根据集群所使用的认证方式进行选择
     if (
             rd_kafka_conf_set(conf, "security.protocol", "sasl_plaintext", errstr, sizeof(errstr)) != RD_KAFKA_CONF_OK
             || rd_kafka_conf_set(conf, "sasl.mechanism", "SCRAM-SHA-512", errstr, sizeof(errstr)) != RD_KAFKA_CONF_OK

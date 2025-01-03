@@ -1,47 +1,67 @@
-# VPC网络PLAINTEXT方式生产和消费
-在同 VPC 网络下访问，使用 PLAINTEXT 协议接入，接入点可以在 【集群详情】 页面查看。
+在同 VPC 网络下访问，使用 PLAINTEXT 协议接入，接入点可以在 **集群详情** 页面查看。
+
 ## 环境准备
+
 1. [安装1.8或以上版本 JDK](https://www.oracle.com/java/technologies/downloads/)
 2. [安装2.5或以上版本 Maven](https://maven.apache.org/download.cgi)
-## 集群准备
-### 1. 购买专享版消息服务for Kafka集群
-   开通消息服务 for Kafka服务后，在控制台页面点击『创建集群』，即可进行购买。
-![img.png](../../img/img.png)
-### 2. 为购买的集群创建主题
-   在控制台页面点击集群名称，进入集群详情页面。
-   在左侧的边栏中点击『主题管理』，进入主题管理页面。
-![img.png](../../img/img1.png)
-在主题管理页面点击『创建主题』，进行主题的创建。
-## 使用步骤
-### 步骤一：获取集群接入点
-具体请参考：[接入点查看]()。
-### 步骤二：添加Maven配置
-```xml
-<dependencies>
-    <dependency>
-        <groupId>org.apache.kafka</groupId>
-        <artifactId>kafka-clients</artifactId>
-        <version>2.7.2</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->
-    <dependency>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.5.0</version>
-    </dependency>
-</dependencies>
-```
-### 步骤三：编写测试代码
-* 需要关注并自行修改的参数
 
-| 参数名          | 含义      |
-|--------------|---------|
-| access_point | 接入点     |
-| topic        | 主题名称    |
+## 集群准备
+
+### 1. 购买专享版消息服务for Kafka集群
+
+开通消息服务 for Kafka服务后，在控制台页面点击『创建集群』，即可进行购买。
+
+![img.png](../../img/img.png)
+
+### 2. 为购买的集群创建主题
+
+在控制台页面点击集群名称，进入集群详情页面。
+
+在左侧的边栏中点击『主题管理』，进入主题管理页面。
+
+![img.png](../../img/img1.png)
+
+在主题管理页面点击『创建主题』，进行主题的创建。
+
+## 使用步骤
+
+### 步骤一：获取集群接入点
+
+具体请参考：[接入点查看](Kafka/专享版/操作指南/集群管理/查看集群接入点.md)。
+
+### 步骤二：添加Maven配置
+
+```xml
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>2.7.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+    </dependencies>
+```
+
+### 步骤三：编写测试代码
+
+- 需要关注并自行修改的参数
+
+| 参数名       | 含义           |
+| ------------ | -------------- |
+| access_point | 接入点信息     |
+| topic        | 主题名称       |
 | message      | 消息的具体内容 |
-| group_id     | 消费组id   |
+| group_id     | 消费组id       |
+
 #### 生产者代码示例
+
 创建KafkaProducerDemo.java文件，具体代码示例如下：
+
 ```java
 package org.example.Java示例.PLAINTEXT;
 
@@ -106,8 +126,11 @@ public class KafkaProducerDemo {
     }
 }
 ```
+
 #### 消费者代码示例
+
 创建KafkaConsumerDemo.java文件，具体代码示例如下：
+
 ```java
 package org.example.Java示例.PLAINTEXT;
 
@@ -177,24 +200,38 @@ public class KafkaConsumerDemo {
     }
 }
 ```
+
 ### 步骤四：编译并运行
+
 编译并运行上述两个代码文件。
-* 先启动KafkaConsumerDemo.java，再启动KafkaProducerDemo.java
+
+- 先启动KafkaConsumerDemo.java
+- 再启动KafkaProducerDemo.java
+
 ### 步骤五：查看集群监控
+
 查看消息是否发送成功或消费成功有两种方式：
-1. 在服务器端/控制台查看日志。
-2. 在专享版消息服务 for Kafka控制台查看集群监控，获取集群生产、消息情况。
+
+1. 查看Java程序输出日志。
+
+1. 在专享版消息服务 for Kafka控制台查看集群监控，获取集群生产、消息情况。
 
 推荐使用第二种方式，下面介绍如何查看集群监控。
 
 （1）在专享版消息服务 for Kafka的控制台页面找到需要连接的集群，点击集群名称进入『集群详情』页面。
+
 ![img.png](../../img/img2.png)
+
 （2）页面跳转后，进入左侧边中的『集群详情』页面。
+
 ![img.png](../../img/img3.png)
+
 （3）点击左侧边栏中的『集群监控』，进入『集群监控』页面。
+
 ![img.png](../../img/img4.png)
+
 （4）通过查看『集群监控』页面，提供的不同纬度的监控信息（集群监控、节点监控、主题监控、消费组监控），即可获知集群的生产和消费情况。
-集群监控的具体使用请参考：[集群监控]()
+
+集群监控的具体使用请参考：[集群监控](Kafka/专享版/操作指南/监控报警/集群监控.md)
+
 ![img.png](../../img/img5.png)
-
-

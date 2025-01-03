@@ -2,7 +2,7 @@ from confluent_kafka import Consumer
 
 consumer = Consumer({
     # 接入点
-    'bootstrap.servers':'120.48.16.84:9095,120.48.159.11:9095,180.76.99.163:9095',
+    'bootstrap.servers':'x.x.x.x:9095,x.x.x.x:9095,x.x.x.x:9095',
     # 接入协议
     'security.protocol':'PLAINTEXT',
     # 消费组id

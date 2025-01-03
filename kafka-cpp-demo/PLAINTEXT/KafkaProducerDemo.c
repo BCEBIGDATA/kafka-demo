@@ -91,15 +91,17 @@ rd_kafka_conf_t *conf; /* Temporary configuration object */
     /*
      * Argument validation
      */
+
+     // 检查参数配置
     if (argc != 3) {
         fprintf(stderr, "%% Usage: %s <broker> <topic>\n", argv[0]);
         return 1;
     }
 
+    // 接入点信息
     brokers = argv[1];
+    // 主题名称
     topic   = argv[2];
-    // username = argv[3];
-    // password = argv[4];
 
 
     /*
@@ -138,6 +140,7 @@ rd_kafka_conf_t *conf; /* Temporary configuration object */
      *       and the application must not reference it again after
      *       this call.
      */
+
     rk = rd_kafka_new(RD_KAFKA_PRODUCER, conf, errstr, sizeof(errstr));
     if (!rk) {
         fprintf(stderr, "%% Failed to create new producer: %s\n", errstr);

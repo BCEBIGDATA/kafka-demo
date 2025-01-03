@@ -1,9 +1,10 @@
-package PLAINTEXT
+package main
 
 import (
-	"fmt"
-	"github.com/confluentinc/confluent-kafka-go/kafka"
+"fmt"
+"github.com/confluentinc/confluent-kafka-go/kafka"
 )
+
 
 func main() {
 
@@ -13,7 +14,7 @@ func main() {
 		// 接入协议
 		"security.protocol": "plaintext",
 		// 消费组 id
-		"group.id":          "test_group",
+		"group.id": "test_group",
 		"auto.offset.reset": "earliest",
 	}
 
@@ -23,7 +24,7 @@ func main() {
 		panic(err)
 	}
 
-	//填写创建的主题的名称
+    //填写创建的主题的名称
 	c.SubscribeTopics([]string{"topic_name"}, nil)
 
 	for {

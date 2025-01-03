@@ -1,30 +1,47 @@
-# VPC网络PLAINTEXT方式生产和消费
-在同 VPC 网络下访问，使用 PLAINTEXT 协议接入，接入点可以在 【集群详情】 页面查看。
-具体请参考接入点查看
+在同 VPC 网络下访问，使用 PLAINTEXT 协议接入，接入点可以在 **集群详情** 页面查看。
+
 ## 环境准备
+
 1. [安装GCC](https://gcc.gnu.org/install/?spm=a2c4g.159954.0.0.4f6744d285uMBi)
 2. 安装C++ 依赖库。
+
 ```shell
-   yum install librdkafka-devel
-   yum install cyrus-sasl
-   yum install cyrus-sasl-scram
+yum install librdkafka-devel
+yum install cyrus-sasl
+yum install cyrus-sasl-scram
 ```
+
 ## 集群准备
+
 ### 1. 购买专享版消息服务for Kafka集群
+
 开通消息服务 for Kafka服务后，在控制台页面点击『创建集群』，即可进行购买。
+
 ![img.png](../../img/img.png)
+
 ### 2. 为购买的集群创建主题
+
 在控制台页面点击集群名称，进入集群详情页面。
+
 在左侧的边栏中点击『主题管理』，进入主题管理页面。
+
 ![img.png](../../img/img1.png)
+
 在主题管理页面点击『创建主题』，进行主题的创建。
-## 使用步骤
+
+## 使用步骤：
+
 ### 步骤一：获取集群接入点
-具体请参考：[接入点查看]()。
+
+具体请参考：[接入点查看](Kafka/专享版/操作指南/集群管理/查看集群接入点.md)。
+
 ### 步骤二：编写测试代码
+
 #### 生产者代码示例
+
 创建KafkaProducerDemo.c文件，具体代码示例如下：
-```cpp
+
+```shell
 /*
 * librdkafka - Apache Kafka C library
 *
@@ -118,15 +135,17 @@ rd_kafka_conf_t *conf; /* Temporary configuration object */
     /*
      * Argument validation
      */
+     
+     // 检查参数配置
     if (argc != 3) {
         fprintf(stderr, "%% Usage: %s <broker> <topic>\n", argv[0]);
         return 1;
     }
-
+       
+    // 接入点信息
     brokers = argv[1];
+    // 主题名称
     topic   = argv[2];
-    // username = argv[3];
-    // password = argv[4];
 
 
     /*
@@ -165,6 +184,7 @@ rd_kafka_conf_t *conf; /* Temporary configuration object */
      *       and the application must not reference it again after
      *       this call.
      */
+    
     rk = rd_kafka_new(RD_KAFKA_PRODUCER, conf, errstr, sizeof(errstr));
     if (!rk) {
         fprintf(stderr, "%% Failed to create new producer: %s\n", errstr);
@@ -284,9 +304,12 @@ rd_kafka_conf_t *conf; /* Temporary configuration object */
     return 0;
 }
 ```
+
 #### 消费者代码示例
+
 创建KafkaConsumerDemo.c文件，具体代码示例如下：
-```cpp
+
+```shell
 /*
 * librdkafka - Apache Kafka C library
 *
@@ -378,13 +401,18 @@ rd_kafka_resp_err_t err; /* librdkafka API error code */
     /*
      * Argument validation
      */
+     
+    // 检查参数配置
     if (argc < 4) {
         fprintf(stderr, "%% Usage: %s <broker> <group.id> <username> <password> <topic1> <topic2>..\n", argv[0]);
         return 1;
     }
 
+    // 接入点信息
     brokers   = argv[1];
+    // 消费组 id
     groupid   = argv[2];
+    // 主题名称
     topics    = &argv[3];
 
     topic_cnt = argc - 3;
@@ -556,29 +584,43 @@ rd_kafka_resp_err_t err; /* librdkafka API error code */
     return 0;
 }
 ```
+
 ### 步骤三：编译并运行
+
 编译并运行上述两个代码文件。
-```shell
-## 启动消费者
+
+```bash
+# 启动消费者
 gcc -lrdkafka ./consumer.c -o consumer
 ./consumer <broker> <group.id> <topic1> <topic2>..
 # 启动生产者
 gcc -lrdkafka ./producer.c -o producer
 ./producer <broker> <topic>
 ```
+
 ### 步骤四：查看集群监控
+
 查看消息是否发送成功或消费成功有两种方式：
+
 1. 在服务器端/控制台查看日志。
 2. 在专享版消息服务 for Kafka控制台查看集群监控，获取集群生产、消息情况。
 
 推荐使用第二种方式，下面介绍如何查看集群监控。
 
 （1）在专享版消息服务 for Kafka的控制台页面找到需要连接的集群，点击集群名称进入『集群详情』页面。
+
 ![img.png](../../img/img2.png)
+
 （2）页面跳转后，进入左侧边中的『集群详情』页面。
+
 ![img.png](../../img/img3.png)
+
 （3）点击左侧边栏中的『集群监控』，进入『集群监控』页面。
+
 ![img.png](../../img/img4.png)
+
 （4）通过查看『集群监控』页面，提供的不同纬度的监控信息（集群监控、节点监控、主题监控、消费组监控），即可获知集群的生产和消费情况。
-集群监控的具体使用请参考：[集群监控]()
+
+集群监控的具体使用请参考：[集群监控](Kafka/专享版/操作指南/监控报警/集群监控.md)
+
 ![img.png](../../img/img5.png)

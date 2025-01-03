@@ -9,6 +9,7 @@ import java.util.Properties;
 
 public class KafkaProducerDemo {
     public static void main(String[] args) {
+
         // 需要自行配置下面三个参数
         // 接入点-PLAINTEXT
         String access_point = "192.168.32.10:9092,192.168.32.12:9092,192.168.32.11:9092";
